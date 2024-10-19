@@ -81,53 +81,81 @@ function App() {
 
   const triggerConfetti = () => {
     confetti({
-      particleCount: 400,
-      spread: 100,
+      particleCount: 500,
+      spread: 150,
       origin: { y: 0.6 },
       colors: ["#ed6853", "#d1e8d8", "#d0bfdb"],
     });
   };
 
-  return (
-    <div className="box">
-      <Container className="main-box">
-        <h1 className={allTasksCompleted ? "glow" : ""}>⭒ TODO LIST ⭒</h1>{" "}
-        {todoList.length > 0 && (
-          <h3>
-            {completedTasksCount === todoList.length
-              ? `All ${completedTasksCount} tasks completed! :D`
-              : completedTasksCount > 0
-              ? `${completedTasksCount} tasks completed :)`
-              : "No tasks completed yet :("}
-          </h3>
-        )}
-        <Container className="small-box">
-          <Row className="add-item-row">
-            <Col xs={12} sm={10}>
-              <input
-                type="text"
-                placeholder="Enter a task..."
-                className="input-box"
-                value={todoValue}
-                onChange={(event) => setTodoValue(event.target.value)}
-              />
-            </Col>
-            <Col xs={12} sm={2}>
-              <button className="button-add" onClick={addTask}>
-                Add
-              </button>
-            </Col>
-          </Row>
+  const createParticle = () => {
+    const particle = document.createElement("div");
+    particle.className = "particle";
+    const size = Math.random() * 1.5 + 1.3;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+    particle.style.left = `${Math.random() * 100}vw`;
+    particle.style.top = `${Math.random() * 100}vh`;
+    particle.style.animation = `glitter ${
+      Math.random() * 6 + 2
+    }s ease-in-out forwards`;
+    particle.style.zIndex = 1000;
+    document.body.appendChild(particle);
+    const glowIntensity = Math.random() * 15 + 20; 
+    particle.style.boxShadow = `0 0 ${glowIntensity}px rgba(255, 255, 255)`; 
+    particle.addEventListener("animationend", () => {
+      particle.remove();
+    });
+  };
 
-          <div className="scroll-box">
-            <TodoBoard
-              todoList={todoList}
-              deleteTask={deleteTask}
-              taskComplete={taskComplete}
-            />
-          </div>
+  useEffect(() => {
+    const interval = setInterval(createParticle, 150);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="glitter-container">
+      <div className="box">
+        <Container className="main-box">
+          <h1 className={allTasksCompleted ? "glow" : ""}>⭒ TODO LIST ⭒</h1>{" "}
+          {todoList.length > 0 && (
+            <h3>
+              {completedTasksCount === todoList.length
+                ? `All ${completedTasksCount} tasks completed! :D`
+                : completedTasksCount > 0
+                ? `${completedTasksCount} tasks completed :)`
+                : "No tasks completed yet :("}
+            </h3>
+          )}
+          <Container className="small-box">
+            <Row className="add-item-row">
+              <Col xs={12} sm={10}>
+                <input
+                  type="text"
+                  placeholder="Enter a task..."
+                  className="input-box"
+                  value={todoValue}
+                  onChange={(event) => setTodoValue(event.target.value)}
+                />
+              </Col>
+              <Col xs={12} sm={2}>
+                <button className="button-add" onClick={addTask}>
+                  Add
+                </button>
+              </Col>
+            </Row>
+
+            <div className="scroll-box">
+              <TodoBoard
+                todoList={todoList}
+                deleteTask={deleteTask}
+                taskComplete={taskComplete}
+              />
+            </div>
+          </Container>
         </Container>
-      </Container>
+      </div>
     </div>
   );
 }

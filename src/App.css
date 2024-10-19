@@ -7,9 +7,6 @@
 
 body {
   font-family: "GroovyFont", sans-serif;
-}
-
-body {
   background-image: url(./z2.jpg);
   width: 100%;
   background-size: cover;
@@ -46,7 +43,7 @@ h1 {
   color: rgb(186, 243, 233);
 }
 
-h3{
+h3 {
   margin-bottom: 15px !important;
   font-size: 20px !important;
 }
@@ -83,8 +80,14 @@ h2 {
 }
 
 .todo-content {
+  max-width: 65%;
   padding: 1em;
   font-size: 20px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-box {
@@ -173,6 +176,88 @@ h2 {
   100% {
     opacity: 1;
     text-shadow: 0 0 10px #fff, 0 0 20px #ff9, 0 0 30px #ff9, 0 0 40px #ff9;
+  }
+}
+
+@media (max-width: 1200px) {
+  h1 {
+    font-size: 55px !important;
+  }
+  h2 {
+    font-size: 35px !important;
+  }
+  .main-box {
+    width: 80% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 45px !important;
+  }
+  h2 {
+    font-size: 30px !important;
+  }
+  .input-box {
+    font-size: 16px;
+  }
+
+  .button-add,
+  .button-delete {
+    font-size: 18px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 35px !important;
+  }
+
+  h2 {
+    font-size: 25px !important;
+  }
+
+  .input-box {
+    font-size: 14px;
+  }
+
+  .button-add,
+  .button-delete {
+    font-size: 16px;
+    height: 30px;
+  }
+
+  .main-box {
+    width: 90% !important;
+    padding: 20px;
+  }
+}
+
+.glitter-container {
+  position: relative; 
+  overflow: hidden; 
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%; 
+  opacity: 0; 
+  pointer-events: none; 
+}
+
+@keyframes glitter {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
   }
 }
 
